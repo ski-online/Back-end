@@ -1,0 +1,71 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Ski Online project",
+        "description": "Documentazione delle API Ski Online project",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "Utenti",
+            "description": "API per gli utenti che utilizzano il sistema"
+        }
+    ],
+    "schemes": ["http"],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "paths": {
+        "/utente": {
+            "post": {
+                "tags": [
+                    "Utenti"
+                ],
+                "summary": "Crea un nuovo Utente di livello Utente Registrato nel sistema",
+                "responses": {
+                    "201": {
+                        "description": "Utente creato",
+                        "schema": {
+                            "$ref": "#/definitions/Utente"
+                        }
+                    },
+                    "400": {
+                        "description": "Dati inseriti nel formato sbagliato: dati non in formato json oppure non contenenti i campi nome, cognome, email e password"
+                    },
+                    "409": {
+                        "description": "Indirizzo email già associato ad un utente preesistente, utente non creato"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Utente": {
+            "required": [
+                "nome", "cognome", "email", "password"
+            ],
+            "properties": {
+                "nome": {
+                    "type": "string"
+                },
+                "cognome": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "livelloUtente": {
+                    "type": "string", "enum": ["Base", "Operatore", "Gestore"]
+                }
+            }
+        }
+    }
+}
