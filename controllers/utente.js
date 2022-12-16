@@ -15,7 +15,7 @@ const getUtente = (req, res) => {
 
 const nuovoUtente = (req, res) => {
     if(!(req.body.nome && req.body.cognome && req.body.email && req.body.password)){
-        return res.status(400).json({message: 'dati inseriti nel formato sbagliato'})
+        return res.status(400).json({Error: 'dati inseriti nel formato sbagliato'})
     }
     Utente.findOne({email: req.body.email}, (err, data) => {
         if(!data){  //se il dato non esiste ancora
@@ -30,19 +30,22 @@ const nuovoUtente = (req, res) => {
                 })
                 newUtente.save((err, data) =>{
                     if(err)
-                        return res.json({Error: err})
+                        return res.status(500).json({Error: err})
                     return res.status(201).json(data)
                 })
             })
         }else{
             if(err) 
                 return res.status(500).json(`Something went wrong, please try again. ${err}`)
-            return res.status(409).json({message: "Indirizzo email già utilizzato da un utente"})
+            return res.status(409).json({Error: "Indirizzo email già utilizzato da un utente"})
         }
     })
 }
 
 const rimuoviUtente = (req, res) => {
+    if(req.headers.livello != 'Base'){
+        return res.status(401).json({Error: "Azione non permessa ad un Utente di livello " + req.headers.livello})
+    }
     Utente.deleteOne({email: req.params.email}, (err, data) => {
         if(err){
             return res.status(500).json(`Something went wrong, please try again. ${err}`)
@@ -57,7 +60,7 @@ const modificaPassword = (req, res) => {
     }
     Utente.findOne({email: req.body.email}, (err, data) => {
         if(!data){
-            return res.status(404).json({success: false, message: "Utente non trovato"})
+            return res.status(404).json({Error: "Utente non trovato"})
         }else if(err){
             return res.status(500).json({Error: err})
         }else{
@@ -72,11 +75,11 @@ const modificaPassword = (req, res) => {
                         Utente.updateOne({email: req.body.email}, {password: hash}, (err, update) => {
                             if(err)
                                 return res.status(500).json({Error: err})
-                            return res.status(204)
+                            return res.status(204).json({})
                         })
                     })
                 }else{
-                    return res.status(401).json({success: false, message: "Password errata"})
+                    return res.status(401).json({Error: "Password errata"})
                 }
             })
         }
