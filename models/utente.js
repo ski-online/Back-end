@@ -5,7 +5,8 @@ const schemaUtente = new mongoose.Schema({
     cognome: {type:String, required:true},
     email: {type:String, required:true},
     password: {type:String, required:true},
-    livelloUtente: {type:String, enum: ['Base', 'Operatore', 'Gestore'], default: 'Base'}
+    livelloUtente: {type:String, enum: ['Base', 'Operatore', 'Gestore'], default: 'Base'},
+    nickname: String
 })
 
 const Utente = mongoose.model('Utente', schemaUtente)

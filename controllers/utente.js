@@ -14,7 +14,7 @@ const getUtente = (req, res) => {
 }
 
 const nuovoUtente = (req, res) => {
-    if(!(req.body.nome && req.body.cognome && req.body.email && req.body.password)){
+    if(!(req.body.nome && req.body.cognome && req.body.email && req.body.password && req.body.nickname)){
         return res.status(400).json({Error: 'dati inseriti nel formato sbagliato'})
     }
     Utente.findOne({email: req.body.email}, (err, data) => {
@@ -26,7 +26,8 @@ const nuovoUtente = (req, res) => {
                     nome: req.body.nome,
                     cognome: req.body.cognome,
                     email: req.body.email,
-                    password: hash
+                    password: hash,
+                    nickname: req.body.nickname
                 })
                 newUtente.save((err, data) =>{
                     if(err)

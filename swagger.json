@@ -172,6 +172,10 @@
                                 "password": {
                                     "type": "string",
                                     "example": "Marione01"
+                                },
+                                "nickname": {
+                                    "type": "string",
+                                    "example": "mariorossi0405"
                                 }
                             }
                         }
@@ -737,6 +741,9 @@
                 },
                 "livelloUtente": {
                     "type": "string", "enum": ["Base", "Operatore", "Gestore"]
+                },
+                "nickname": {
+                    "type": "string"
                 }
             }
         },

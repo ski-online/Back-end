@@ -2,7 +2,7 @@ const dotenv = require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
-const routes = require('./routes/utente')
+const routes = require('./routes/router')
 
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger.json')
