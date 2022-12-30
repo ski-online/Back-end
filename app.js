@@ -25,3 +25,5 @@ mongoose.connect(
         console.log("MongoDB Connection -- Ready state is:", mongoose.connection.readyState);
     }
 );
+
+module.exports = app
