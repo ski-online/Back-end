@@ -21,7 +21,7 @@ async function logNegliUltimi30Minuti(req, res){
         }else{
             val = -1
         }
-        list.push({"impianto": impianto._id, "perc": val})
+        list.push({"impianto": impianto.nome, "perc": val})
     };
     res.json(list)
 }
@@ -37,7 +37,7 @@ const utentiNellUltimaOra = (req, res) => {
 
 const createLog = (req, res) => {
     if(!(req.body.idImpianto && req.body.idUtente)){
-        return res.status(400).json({message: 'dati inseriti nel formato sbagliato'})
+        return res.status(400).json({Error: 'dati inseriti nel formato sbagliato'})
     }
     const newLog = new Log({
         impianto: req.body.idImpianto,

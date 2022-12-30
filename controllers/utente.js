@@ -37,7 +37,7 @@ const nuovoUtente = (req, res) => {
             })
         }else{
             if(err) 
-                return res.status(500).json(`Something went wrong, please try again. ${err}`)
+                return res.status(500).json({Error:`Something went wrong, please try again. ${err}`})
             return res.status(409).json({Error: "Indirizzo email già utilizzato da un utente"})
         }
     })
@@ -49,7 +49,7 @@ const rimuoviUtente = (req, res) => {
     }
     Utente.deleteOne({email: req.params.email}, (err, data) => {
         if(err){
-            return res.status(500).json(`Something went wrong, please try again. ${err}`)
+            return res.status(500).json({Error: `Something went wrong, please try again. ${err}`})
         }
         return res.json({message: "Utente eliminato correttamente"})
     })
@@ -57,7 +57,7 @@ const rimuoviUtente = (req, res) => {
 
 const modificaPassword = (req, res) => {
     if(!(req.body.email && req.body.oldPassword && req.body.newPassword)){
-        return res.status(400).json({message: 'dati inseriti nel formato sbagliato'})
+        return res.status(400).json({Error: 'dati inseriti nel formato sbagliato'})
     }
     Utente.findOne({email: req.body.email}, (err, data) => {
         if(!data){
